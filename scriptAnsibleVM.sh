@@ -61,3 +61,6 @@ ansible-playbook wazuh-manager-oss.yml -b -K
 
 #Create and configure agent playbook
 python3 playbookAgent.py $agent_ipaddr
+
+#Run the playbook
+ansible-playbook /etc/ansible/roles/wazuh-ansible/playbooks/wazuh-agent.yml -b -K
