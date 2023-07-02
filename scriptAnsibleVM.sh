@@ -37,63 +37,24 @@ systemctl start sshd
 cat ~/.ssh/id_rsa.pub | ssh ${your_username}@${your_ipaddr} "cat >> ~/.ssh/authorized_keys"
 
 #Edit hosts file
+#ToDo script python
 sed -i ''${your_ipaddr}'ansible_ssh_user='${your_username}/'' /etc/ansible/hosts
 
 #Clone wazuh-ansible repository
-cd /etc/ansible/roles/
-sudo git clone --branch v4.4.4 https://github.com/wazuh/wazuh-ansible.git
-
+sudo git clone --branch v4.4.4 https://github.com/wazuh/wazuh-ansible.git /etc/ansible/roles/
 
 #Install Wazuh Indexer and Dashboard
-
-#Create the file wazuh-indexer-and-dashboard.yml in the playbooks directory
-cd /etc/ansible/roles/wazuh-ansible/
-touch playbooks/wazuh-indexer-and-dashboard.yml
-
-#Fill it with indexer and dashboard playbooks scripts
-sed -i '- hosts: all_in_one
-  roles:
-    - role: ../roles/wazuh/wazuh-indexer
-      perform_installation: false
-  become: no
-  vars:
-    indexer_node_master: true
-    instances:
-      node1:
-        name: node-1       # Important: must be equal to indexer_node_name.
-        ip: 127.0.0.1
-        role: indexer
-  tags:
-    - generate-certs
-
-- hosts: all_in_one
-  become: yes
-  become_user: root
-  roles:
-    - role: ../roles/wazuh/wazuh-indexer
-    - role: ../roles/wazuh/wazuh-dashboard
-
-  vars:
-    single_node: true
-    indexer_network_host: 127.0.0.1
-    ansible_shell_allow_world_readable_temp: true
-    instances:           # A certificate will be generated for every node using the name as CN.
-      node1:
-        name: node-1
-        ip: 127.0.0.1
-        role: indexer' ./playbooks/wazuh-indexer-and-dashboard.yml
+cp wazuh-indexer-and-dashboard.yml /etc/ansible/roles/wazuh-ansible/playbooks/
 
 #Run the playbook
-ansible-playbook wazuh-indexer-and-dashboard.yml -b -K
+ansible-playbook /etc/ansible/roles/wazuh-ansible/playbooks/wazuh-indexer-and-dashboard.yml -b -K
 
 
 #Install wazuh manager
 
-#Access wazuh-ansible directory
-cd /etc/ansible/roles/wazuh-ansible/
-
 #We install it in all_in_one so we have to modify the host in the manager playbook
-sed -i '0,/- hosts:*;/s//- hosts: all_in_one' ./playbooks/wazuh-manager-oss.yml
+#ToDo script python
+sed -i '0,/- hosts:*;/s//- hosts: all_in_one' /etc/ansible/roles/wazuh-ansible/playbooks/wazuh-manager-oss.yml
 
 #Run the playbook
 ansible-playbook wazuh-manager-oss.yml -b -K
