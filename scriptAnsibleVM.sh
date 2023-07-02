@@ -18,7 +18,6 @@ apt-get update
 apt-get install ansible
 
 #Ask for credentials
-read -p 'Enter your username: ' your_username
 read -p 'Ip Address: ' your_ipaddr
 
 #Generate an authentication key pair for SSH
@@ -34,11 +33,10 @@ apt-get install openssh-server
 systemctl start sshd
 
 #Send ssh key to the wazuh server
-cat ~/.ssh/id_rsa.pub | ssh ${your_username}@${your_ipaddr} "cat >> ~/.ssh/authorized_keys"
+cat ~/.ssh/id_rsa.pub | ssh root@${your_ipaddr} "cat >> ~/.ssh/authorized_keys"
 
 #Edit hosts file
-#ToDo script python
-sed -i ''${your_ipaddr}'ansible_ssh_user='${your_username}/'' /etc/ansible/hosts
+python3 changeHosts.py
 
 #Clone wazuh-ansible repository
 sudo git clone --branch v4.4.4 https://github.com/wazuh/wazuh-ansible.git /etc/ansible/roles/
@@ -49,12 +47,10 @@ cp wazuh-indexer-and-dashboard.yml /etc/ansible/roles/wazuh-ansible/playbooks/
 #Run the playbook
 ansible-playbook /etc/ansible/roles/wazuh-ansible/playbooks/wazuh-indexer-and-dashboard.yml -b -K
 
-
 #Install wazuh manager
 
 #We install it in all_in_one so we have to modify the host in the manager playbook
-#ToDo script python
-sed -i '0,/- hosts:*;/s//- hosts: all_in_one' /etc/ansible/roles/wazuh-ansible/playbooks/wazuh-manager-oss.yml
+cp wazuh-manager-oss.yml /etc/ansible/roles/wazuh-ansible/playbooks/
 
 #Run the playbook
 ansible-playbook wazuh-manager-oss.yml -b -K
