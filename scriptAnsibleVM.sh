@@ -35,6 +35,9 @@ systemctl start sshd
 #Send ssh key to the wazuh server
 cat ~/.ssh/id_rsa.pub | ssh root@${your_ipaddr} "cat >> ~/.ssh/authorized_keys"
 
+#Uncomment things
+python3 changeSshd.py
+
 #Edit hosts file
 python3 changeHosts.py $your_ipaddr
 
