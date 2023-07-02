@@ -18,7 +18,7 @@ apt-get update
 apt-get install ansible
 
 #Ask for credentials
-read -p 'Ip Address: ' your_ipaddr
+read -p 'Remote system IP Address: ' your_ipaddr
 
 #Generate an authentication key pair for SSH
 ssh-keygen
@@ -36,7 +36,7 @@ systemctl start sshd
 cat ~/.ssh/id_rsa.pub | ssh root@${your_ipaddr} "cat >> ~/.ssh/authorized_keys"
 
 #Edit hosts file
-python3 changeHosts.py
+python3 changeHosts.py $your_ipaddr
 
 #Clone wazuh-ansible repository
 sudo git clone --branch v4.4.4 https://github.com/wazuh/wazuh-ansible.git /etc/ansible/roles/
