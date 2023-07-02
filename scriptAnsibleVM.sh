@@ -18,7 +18,8 @@ apt-get update
 apt-get install ansible
 
 #Ask for credentials
-read -p 'Remote system IP Address: ' your_ipaddr
+read -p 'Remote system IP Address: ' manager_ipaddr
+read -p 'Agent IP Address: ' agent_ipaddr
 
 #Generate an authentication key pair for SSH
 ssh-keygen
@@ -33,13 +34,13 @@ apt-get install openssh-server
 systemctl start sshd
 
 #Send ssh key to the wazuh server
-cat ~/.ssh/id_rsa.pub | ssh root@${your_ipaddr} "cat >> ~/.ssh/authorized_keys"
+cat ~/.ssh/id_rsa.pub | ssh root@${manager_ipaddr} "cat >> ~/.ssh/authorized_keys"
 
 #Uncomment things
 python3 changeSshd.py
 
 #Edit hosts file
-python3 changeHosts.py $your_ipaddr
+python3 changeHosts.py $manager_ipaddr
 
 #Clone wazuh-ansible repository
 sudo git clone --branch v4.4.4 https://github.com/wazuh/wazuh-ansible.git /etc/ansible/roles/
@@ -57,3 +58,6 @@ cp wazuh-manager-oss.yml /etc/ansible/roles/wazuh-ansible/playbooks/
 
 #Run the playbook
 ansible-playbook wazuh-manager-oss.yml -b -K
+
+#Create and configure agent playbook
+python3 playbookAgent.py $agent_ipaddr
