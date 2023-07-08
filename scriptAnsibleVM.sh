@@ -27,12 +27,6 @@ ssh-keygen
 #Permissions settings
 chmod 700 ~/.ssh/
 
-#Install openssh-server
-apt-get install openssh-server
-
-#Start SSH service
-systemctl start sshd
-
 #Send ssh key to the wazuh server
 cat ~/.ssh/id_rsa.pub | ssh root@${manager_ipaddr} "cat >> ~/.ssh/authorized_keys"
 
