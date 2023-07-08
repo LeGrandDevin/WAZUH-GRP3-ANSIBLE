@@ -6,16 +6,16 @@
 #Install Ansible
 
 #Install required dependencies
-apt-get update
-apt-get install lsb-release software-properties-common
+apt update
+apt install lsb-release software-properties-common
 
 #Setup ansible repository
 echo "deb http://ppa.launchpad.net/ansible/ansible/ubuntu trusty main" | sudo tee -a /etc/apt/sources.list.d/ansible-debian.list
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 93C4A3FD7BB9C367
-apt-get update
+apt update
 
 #Install ansible
-apt-get install ansible
+apt install ansible
 
 #Ask for credentials
 read -p 'Remote system IP Address: ' manager_ipaddr
