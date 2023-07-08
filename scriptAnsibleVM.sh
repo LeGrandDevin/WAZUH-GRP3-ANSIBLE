@@ -30,9 +30,6 @@ chmod 700 ~/.ssh/
 #Send ssh key to the wazuh server
 cat ~/.ssh/id_rsa.pub | ssh root@${manager_ipaddr} "cat >> ~/.ssh/authorized_keys"
 
-#Uncomment things
-python3 changeSshd.py
-
 #Edit hosts file
 python3 changeHosts.py $manager_ipaddr
 
