@@ -51,7 +51,7 @@ ansible-playbook /etc/ansible/roles/wazuh-ansible/playbooks/wazuh-indexer-and-da
 cp wazuh-manager-oss.yml /etc/ansible/roles/wazuh-ansible/playbooks/
 
 #Run the playbook
-ansible-playbook wazuh-manager-oss.yml -b -K
+ansible-playbook /etc/ansible/roles/wazuh-ansible/playbooks/wazuh-manager-oss.yml -b -K
 
 #Create and configure agent playbook
 python3 playbookAgent.py $agent_ipaddr
