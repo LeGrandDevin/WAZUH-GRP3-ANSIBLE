@@ -6,13 +6,13 @@
 #Install Ansible
 
 #Install required dependencies
-apt update
+apt-get update
 apt install lsb-release software-properties-common
 
 #Setup ansible repository
 echo "deb http://ppa.launchpad.net/ansible/ansible/ubuntu trusty main" | sudo tee -a /etc/apt/sources.list.d/ansible-debian.list
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 93C4A3FD7BB9C367
-apt update
+apt-get update
 
 #Install ansible
 apt install ansible
