@@ -30,14 +30,14 @@ chmod 700 ~/.ssh/
 #Send ssh key to the wazuh server
 cat ~/.ssh/id_rsa.pub | ssh root@${manager_ipaddr} "cat >> ~/.ssh/authorized_keys"
 
+#Clone wazuh-ansible repository
+sudo git clone --branch v4.4.4 https://github.com/wazuh/wazuh-ansible.git /etc/ansible/roles/wazuh-ansible
+
 #create hosts file if not exist
 touch /etc/ansible/hosts
 
 #Edit hosts file
 python3 changeHosts.py $manager_ipaddr
-
-#Clone wazuh-ansible repository
-sudo git clone --branch v4.4.4 https://github.com/wazuh/wazuh-ansible.git /etc/ansible/roles/wazuh-ansible
 
 #Install Wazuh Indexer and Dashboard
 cp wazuh-indexer-and-dashboard.yml /etc/ansible/roles/wazuh-ansible/playbooks/
