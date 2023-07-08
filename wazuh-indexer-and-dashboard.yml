@@ -14,7 +14,7 @@
     - generate-certs
 
 - hosts: all_in_one
-  become: yes
+  become: no
   become_user: root
   roles:
     - role: ../roles/wazuh/wazuh-indexer
