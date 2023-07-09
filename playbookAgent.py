@@ -1,6 +1,6 @@
 import sys
 ipaddr = sys.argv[1]
-agent_playbook = '''- hosts: wazuh-agents
+agent_playbook = '''- hosts: wazuh_agents
   become: yes
   become_user: root
   roles:
