@@ -1,6 +1,5 @@
 import sys
 ipaddr = sys.argv[1]
-agentName = sys.argv[2]
 agent_playbook = '''- hosts: wazuh_agents
   become: yes
   become_user: root
@@ -15,7 +14,7 @@ agent_playbook = '''- hosts: wazuh_agents
         api_proto: 'http'
         api_user: ansible
         max_retries: 5
-        retry_interval: 5'''.format(ipaddr = ipaddr, agentName = agentName)
+        retry_interval: 5'''.format(ipaddr = ipaddr)
 f = open('/etc/ansible/roles/wazuh-ansible/playbooks/wazuh-agent.yml', 'w')
 f.write(agent_playbook)
 f.close()
