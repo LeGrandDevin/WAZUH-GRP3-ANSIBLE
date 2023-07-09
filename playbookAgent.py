@@ -30,7 +30,7 @@ agent_playbook = '''- hosts: wazuh_agents
       authorization_pass_path: /var/ossec/etc/authd.pass
       auto_method: 'no'
       delay_after_enrollment: 20
-  use_source_ip: 'no'\''''.format(ipaddr = ipaddr, agentName = agentName)
+      use_source_ip: 'no'\''''.format(ipaddr = ipaddr, agentName = agentName)
 f = open('/etc/ansible/roles/wazuh-ansible/playbooks/wazuh-agent.yml', 'w')
 f.write(agent_playbook)
 f.close()
