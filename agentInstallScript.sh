@@ -6,7 +6,7 @@ read -p 'Agent IP Address: ' agent_ipaddr
 cat ~/.ssh/id_rsa.pub | ssh root@${agent_ipaddr} "cat >> ~/.ssh/authorized_keys"
 
 #Add role to hosts file
-python3 changeHosts.py $manager_ipaddr "[wazuh_agents]"
+python3 changeHosts.py $agent_ipaddr "[wazuh_agents]"
 
 #Create and configure agent playbook
 python3 playbookAgent.py $manager_ipaddr
