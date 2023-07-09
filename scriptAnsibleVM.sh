@@ -19,7 +19,6 @@ apt install ansible
 
 #Ask for credentials
 read -p 'Remote system IP Address: ' manager_ipaddr
-read -p 'Agent IP Address: ' agent_ipaddr
 
 #Generate an authentication key pair for SSH
 ssh-keygen
