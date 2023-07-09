@@ -36,7 +36,7 @@ sudo git clone --branch v4.4.4 https://github.com/wazuh/wazuh-ansible.git /etc/a
 touch /etc/ansible/hosts
 
 #Edit hosts file
-python3 changeHosts.py $manager_ipaddr
+python3 changeHosts.py $manager_ipaddr "[all_in_one]"
 
 #Install Wazuh Indexer and Dashboard
 cp wazuh-indexer-and-dashboard.yml /etc/ansible/roles/wazuh-ansible/playbooks/
